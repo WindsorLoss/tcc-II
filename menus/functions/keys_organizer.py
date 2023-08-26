@@ -1,6 +1,5 @@
 def keys_organizer(file):
     
-    file = open(file, 'r')
     keys = file.readlines()
     api_name = []
     api_key = []
