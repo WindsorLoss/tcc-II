@@ -1,5 +1,5 @@
 import requests
-from colorama import Fore, Back, Style, init
+from colorama import Fore, Style, init
 init(autoreset=True)
 
 def vt_get_ip(api):
@@ -63,7 +63,7 @@ def vt_get_ip(api):
                         print(f"Método: {analysis_results[i]['method']}\n")
 
     except:
-        print(Fore.RED + Style.BRIGHT + '\n=== ERRO ENCONTRADO ===\n')
+        print(Fore.RED + Style.BRIGHT + '\n=== ERRO ENCONTRADO - Virus Total ===\n')
 
         print(f'Mensagem: {response["error"]["message"]}')
         print(f'Código: {response["error"]["code"]}\n')

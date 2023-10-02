@@ -1,7 +1,6 @@
 from time import sleep
 import requests
-import base64
-from colorama import Fore, Back, Style, init
+from colorama import Fore, Style, init
 init(autoreset=True)
 
 def vt_get_url(api, url = None):
@@ -125,7 +124,7 @@ def vt_get_url(api, url = None):
         if error_code == "NotFoundError":
             vt_get_url(api, url)
         else:
-            print(Fore.RED + Style.BRIGHT + '\n=== ERRO ENCONTRADO ===\n')
+            print(Fore.RED + Style.BRIGHT + '\n=== ERRO ENCONTRADO - Virus Total ===\n')
 
             print(f'Mensagem: {error_message}')
             print(f'Código: {error_code}\n')

@@ -1,4 +1,5 @@
-from keys_organizer import keys_organizer
+from .keys_organizer import keys_organizer
+from colorama import Fore, Style
 
 def overwrite_key(file_path, api, key):
 
@@ -13,3 +14,5 @@ def overwrite_key(file_path, api, key):
         file.write(f'{api_names[i]}:{api_keys[i]}\n')
 
     file.close()
+
+    print(Fore.GREEN + Style.BRIGHT + '\nChave adicionada com sucesso!\n')

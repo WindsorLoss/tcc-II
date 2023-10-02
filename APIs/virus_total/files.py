@@ -106,7 +106,7 @@ def vt_get_file(api, file_path = None):
                     print(f'-> {i}')
 
     except:
-        print(Fore.RED + Style.BRIGHT + '\n=== ERRO ENCONTRADO ===\n')
+        print(Fore.RED + Style.BRIGHT + '\n=== ERRO ENCONTRADO - Virus Total ===\n')
 
         print(f'Mensagem: {response_result["error"]["message"]}')
         print(f'Código: {response_result["error"]["code"]}\n')
