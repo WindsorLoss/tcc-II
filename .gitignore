@@ -131,3 +131,6 @@ dmypy.json
 
 # API keys file
 api_keys.txt
+
+# Test files
+test*

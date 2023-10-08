@@ -1,10 +1,15 @@
 import requests
 from colorama import Fore, Style, init
+from time import sleep
 init(autoreset=True)
 
 def vt_get_ip(api):
     
     ip_addr = input('\nDigite o IP: ')
+    while ip_addr == "":
+        print(Fore.RED + Style.BRIGHT + 'Valor inválido. Tente novamente.')
+        sleep(1)
+        ip_addr = input('\nDigite o IP: ')
 
     response = requests.get(f'https://www.virustotal.com/api/v3/ip_addresses/{ip_addr}', 
         headers={

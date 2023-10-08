@@ -7,6 +7,10 @@ def vt_get_url(api, url = None):
 
     if not url:
         url = input('\nDigite a URL: ')
+        while url == "":
+            print(Fore.RED + Style.BRIGHT + 'Valor inválido. Tente novamente.')
+            sleep(1)
+            url = input('\nDigite a URL: ')
 
     response = requests.post('https://www.virustotal.com/api/v3/urls',
     data=f'url={url}', 

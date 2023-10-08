@@ -2,6 +2,7 @@ from colorama import Fore, Back, Style, init
 from APIs.virus_total.ip_addresses import vt_get_ip
 from APIs.virus_total.url import vt_get_url
 from APIs.virus_total.files import vt_get_file
+from APIs.virus_total.hash import vt_get_hash
 from menus.functions.keys_organizer import keys_organizer
 from time import sleep
 
@@ -19,7 +20,7 @@ def search_ioc_menu():
         
         print(Fore.YELLOW + 'Escolha uma opção:')
         print('1 - Análise de arquivo')
-        print('2 - Análise de hash (NOT AVAILABLE)')
+        print('2 - Análise de hash')
         print('3 - Análise de IP')
         print('4 - Análise de URL')
         print('0 - Voltar\n')
@@ -37,8 +38,7 @@ def search_ioc_menu():
             vt_get_file(api_keys[api_names.index('virustotal')])
         
         elif option == 2:
-            print('\nOpção não disponível no momento.')
-            sleep(1)
+            vt_get_hash(api_keys[api_names.index('virustotal')])
         
         elif option == 3:
             vt_get_ip(api_keys[api_names.index('virustotal')])
