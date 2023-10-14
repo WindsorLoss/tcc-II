@@ -1,16 +1,8 @@
 import requests
-from colorama import Fore, Back, Style, init
-from time import ctime, sleep
+from colorama import Fore, Style, init
 init(autoreset=True)
 
-def vt_get_hash(api, hash = None):
-
-    if not hash:
-        hash = input('\nDigite a Hash: ')
-        while hash == "":
-            print(Fore.RED + Style.BRIGHT + 'Valor inválido. Tente novamente.')
-            sleep(1)
-            hash = input('\nDigite a Hash: ')
+def vt_get_hash(api, hash):
 
     response = requests.get(f'https://www.virustotal.com/api/v3/files/{hash}', 
         headers={
@@ -23,6 +15,7 @@ def vt_get_hash(api, hash = None):
         analysis_stats = response['data']['attributes']['last_analysis_stats']
         analysis_results = response['data']['attributes']['last_analysis_results']
 
+        print(Fore.MAGENTA + Style.BRIGHT + '\n-=-=-=- VirusTotal -=-=-=-\n')
         print(Fore.CYAN + Style.BRIGHT + '\n=== INFORMAÇÕES GERAIS ===\n')
 
         if 'meaningful_name' in attributes:
@@ -52,12 +45,18 @@ def vt_get_hash(api, hash = None):
         if 'signature_info' in attributes:
             info_assinatura = attributes["signature_info"]
             print('Informações da assinatura do arquivo:')
-            print(Fore.YELLOW + Style.BRIGHT + f'  -> Produto: {info_assinatura["product"]}')
-            print(Fore.YELLOW + Style.BRIGHT + f'  -> Nome interno: {info_assinatura["internal name"]}')
-            print(Fore.YELLOW + Style.BRIGHT + f'  -> Copyright: {info_assinatura["copyright"]}')
-            print(Fore.YELLOW + Style.BRIGHT + f'  -> Nome original: {info_assinatura["original name"]}')
-            print(Fore.YELLOW + Style.BRIGHT + f'  -> Versão do arquivo: {info_assinatura["file version"]}')
-            print(Fore.YELLOW + Style.BRIGHT + f'  -> Descrição: {info_assinatura["description"]}')
+            if "product" in info_assinatura:
+                print(Fore.YELLOW + Style.BRIGHT + f'  -> Produto: {info_assinatura["product"]}')
+            if "internal name" in info_assinatura:
+                print(Fore.YELLOW + Style.BRIGHT + f'  -> Nome interno: {info_assinatura["internal name"]}')
+            if "copyright" in info_assinatura:
+                print(Fore.YELLOW + Style.BRIGHT + f'  -> Copyright: {info_assinatura["copyright"]}')
+            if "original name" in info_assinatura:
+                print(Fore.YELLOW + Style.BRIGHT + f'  -> Nome original: {info_assinatura["original name"]}')
+            if "file version" in info_assinatura:
+                print(Fore.YELLOW + Style.BRIGHT + f'  -> Versão do arquivo: {info_assinatura["file version"]}')
+            if "description" in info_assinatura:
+                print(Fore.YELLOW + Style.BRIGHT + f'  -> Descrição: {info_assinatura["description"]}')
         
         if 'detectiteasy' in attributes:
             print('\nAnálise pelo utilitário "detectiteasy":')

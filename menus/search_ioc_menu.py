@@ -1,8 +1,10 @@
 from colorama import Fore, Back, Style, init
 from APIs.virus_total.ip_addresses import vt_get_ip
+from APIs.otx_alienvault.ip_addresses import alv_get_ip
 from APIs.virus_total.url import vt_get_url
 from APIs.virus_total.files import vt_get_file
 from APIs.virus_total.hash import vt_get_hash
+from APIs.otx_alienvault.hash import alv_get_hash
 from menus.functions.keys_organizer import keys_organizer
 from time import sleep
 
@@ -38,10 +40,24 @@ def search_ioc_menu():
             vt_get_file(api_keys[api_names.index('virustotal')])
         
         elif option == 2:
-            vt_get_hash(api_keys[api_names.index('virustotal')])
+            hash = input('\nDigite a hash: ')
+            while hash == "":
+                print(Fore.RED + Style.BRIGHT + 'Valor inválido. Tente novamente.')
+                sleep(1)
+                hash = input('\nDigite a hash: ')
+
+            vt_get_hash(api_keys[api_names.index('virustotal')], hash)
+            alv_get_hash(api_keys[api_names.index('alienvault')], hash)
         
-        elif option == 3:
-            vt_get_ip(api_keys[api_names.index('virustotal')])
+        elif option == 3:        
+            ip_addr = input('\nDigite o IP: ')
+            while ip_addr == "":
+                print(Fore.RED + Style.BRIGHT + 'Valor inválido. Tente novamente.')
+                sleep(1)
+                ip_addr = input('\nDigite o IP: ')
+
+            vt_get_ip(api_keys[api_names.index('virustotal')], ip_addr)
+            alv_get_ip(api_keys[api_names.index('alienvault')], ip_addr)
 
         elif option == 4:
             vt_get_url(api_keys[api_names.index('virustotal')])

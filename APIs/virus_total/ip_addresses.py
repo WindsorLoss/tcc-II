@@ -3,14 +3,8 @@ from colorama import Fore, Style, init
 from time import sleep
 init(autoreset=True)
 
-def vt_get_ip(api):
+def vt_get_ip(api, ip_addr):
     
-    ip_addr = input('\nDigite o IP: ')
-    while ip_addr == "":
-        print(Fore.RED + Style.BRIGHT + 'Valor inválido. Tente novamente.')
-        sleep(1)
-        ip_addr = input('\nDigite o IP: ')
-
     response = requests.get(f'https://www.virustotal.com/api/v3/ip_addresses/{ip_addr}', 
         headers={
             'x-apikey': api
@@ -21,6 +15,7 @@ def vt_get_ip(api):
         analysis_stats = response['data']['attributes']['last_analysis_stats']
         analysis_results = response['data']['attributes']['last_analysis_results']
 
+        print(Fore.MAGENTA + Style.BRIGHT + '\n-=-=-=- VirusTotal -=-=-=-\n')
         print(Fore.CYAN + Style.BRIGHT + '\n=== DETALHES ===\n')
 
         reputation = attributes["reputation"]
@@ -35,12 +30,12 @@ def vt_get_ip(api):
         print(f'Registro de internet regional: {attributes["regional_internet_registry"]}')
         print(f'Rede: {attributes["network"]}')
         print(f'WHOIS Lookup: {attributes["whois"]}')
+ 
         print(f'Autonomous System Owner: {attributes["as_owner"]}')
         print(f'Autonomous System Number: {attributes["asn"]}')
         if "jarm" in attributes:
             print(f'JARM fingerprint: {attributes["jarm"]}\n')
-        else:
-            print('')
+
 
         print(Fore.CYAN + Style.BRIGHT + f'\n=== CONTAGEM TOTAL DAS CLASSIFICAÇÕES ===\n')
         for i in analysis_stats:
@@ -66,6 +61,9 @@ def vt_get_ip(api):
                         print(f"Classificação: {analysis_results[i]['category']}")
                         print(f"Resultado: {analysis_results[i]['result']}")
                         print(f"Método: {analysis_results[i]['method']}\n")
+
+    except Exception as e:
+        print(e)
 
     except:
         print(Fore.RED + Style.BRIGHT + '\n=== ERRO ENCONTRADO - Virus Total ===\n')
