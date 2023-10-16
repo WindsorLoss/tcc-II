@@ -3,14 +3,7 @@ import requests
 from colorama import Fore, Style, init
 init(autoreset=True)
 
-def vt_get_url(api, url = None):
-
-    if not url:
-        url = input('\nDigite a URL: ')
-        while url == "":
-            print(Fore.RED + Style.BRIGHT + 'Valor inválido. Tente novamente.')
-            sleep(1)
-            url = input('\nDigite a URL: ')
+def vt_get_url(api, url):       
 
     response = requests.post('https://www.virustotal.com/api/v3/urls',
     data=f'url={url}', 
@@ -48,7 +41,7 @@ def vt_get_url(api, url = None):
             vt_get_url(api, url)
 
         else:
-
+            print(Fore.MAGENTA + Style.BRIGHT + '\n-=-=-=- VirusTotal -=-=-=-\n')
             print(Fore.CYAN + Style.BRIGHT + '\n=== DETALHES ===\n')
 
             reputation = attributes["reputation"]
@@ -104,7 +97,7 @@ def vt_get_url(api, url = None):
                         print(f"Resultado: {analysis_results[i]['result']}")
                         print(f"Método: {analysis_results[i]['method']}\n")
 
-            if 'threat_names' in attributes:
+            if 'threat_names' in attributes and len(attributes['threat_names']) > 0:
                 print(Fore.CYAN + Style.BRIGHT + '\n=== NOME DAS AMEAÇAS ===\n')
                 for i in attributes['threat_names']:
                     print(f'-> {i}') 

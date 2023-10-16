@@ -2,6 +2,7 @@ from colorama import Fore, Back, Style, init
 from APIs.virus_total.ip_addresses import vt_get_ip
 from APIs.otx_alienvault.ip_addresses import alv_get_ip
 from APIs.virus_total.url import vt_get_url
+from APIs.otx_alienvault.url import alv_get_url
 from APIs.virus_total.files import vt_get_file
 from APIs.virus_total.hash import vt_get_hash
 from APIs.otx_alienvault.hash import alv_get_hash
@@ -60,4 +61,10 @@ def search_ioc_menu():
             alv_get_ip(api_keys[api_names.index('alienvault')], ip_addr)
 
         elif option == 4:
-            vt_get_url(api_keys[api_names.index('virustotal')])
+            url = input('\nDigite a URL: ')
+            while url == "":
+                print(Fore.RED + Style.BRIGHT + 'Valor inválido. Tente novamente.')
+                sleep(1)
+                url = input('\nDigite a URL: ')
+            vt_get_url(api_keys[api_names.index('virustotal')], url)
+            alv_get_url(api_keys[api_names.index('alienvault')], url)

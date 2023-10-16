@@ -1,6 +1,7 @@
 import requests
 from colorama import Fore, Style, init
 from .utils.pulse_info import alv_pulse_info
+from .utils.url_list import alv_url_list
 from time import sleep
 init(autoreset=True)
 
@@ -11,6 +12,10 @@ def alv_get_ip(api, ip_addr):
             'X-OTX-API-KEY': api
         }).json()
     response_malware = requests.get(f'https://otx.alienvault.com/api/v1/indicator/IPv4/{ip_addr}/malware', 
+        headers={
+            'X-OTX-API-KEY': api
+        }).json()
+    response_url_list = requests.get(f'https://otx.alienvault.com/api/v1/indicator/IPv4/{ip_addr}/url_list', 
         headers={
             'X-OTX-API-KEY': api
         }).json()
@@ -35,6 +40,9 @@ def alv_get_ip(api, ip_addr):
             for i in response_general['validation']:
                 if i['source'] == 'whitelist':
                     print('Veredito: ' + Fore.GREEN + f"{i['name']}")
+
+        # ----------------- URL LIST -----------------
+        alv_url_list(response_url_list)
 
         # ----------------- PULSE INFO -----------------
         alv_pulse_info(response_general)

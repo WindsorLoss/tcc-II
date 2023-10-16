@@ -29,7 +29,7 @@ def alv_pulse_info(response):
     related = response['pulse_info']['related']
 
     if related['alienvault']['malware_families']:
-        print("Familias de malware identificadas pelo Alien Vault:")
+        print("\nFamilias de malware identificadas pelo Alien Vault:")
 
         if len(related['alienvault']['malware_families']) <= 10:
             for i in related['alienvault']['malware_families']:
