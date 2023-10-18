@@ -4,6 +4,7 @@ from APIs.otx_alienvault.ip_addresses import alv_get_ip
 from APIs.virus_total.url import vt_get_url
 from APIs.otx_alienvault.url import alv_get_url
 from APIs.virus_total.files import vt_get_file
+from APIs.otx_alienvault.files import alv_get_file
 from APIs.virus_total.hash import vt_get_hash
 from APIs.otx_alienvault.hash import alv_get_hash
 from menus.functions.keys_organizer import keys_organizer
@@ -38,7 +39,15 @@ def search_ioc_menu():
             break
 
         elif option == 1:
-            vt_get_file(api_keys[api_names.index('virustotal')])
+            file = input('\nCaminho do arquivo: ')
+            while file == "":
+                print(Fore.RED + Style.BRIGHT + 'Valor inválido. Tente novamente.')
+                sleep(1)
+                file = input('\nCaminho do arquivo: ')
+
+            file = "\\\\".join(file.split('\\'))
+            vt_get_file(api_keys[api_names.index('virustotal')], file)
+            alv_get_file(api_keys[api_names.index('alienvault')], file)
         
         elif option == 2:
             hash = input('\nDigite a hash: ')

@@ -6,14 +6,7 @@ from .hash import vt_get_hash
 init(autoreset=True)
 
 
-def vt_get_file(api, file_path = None):
-
-    if not file_path:
-        file_path = input('\nCaminho do arquivo: ')
-        while file_path == "":
-            print(Fore.RED + Style.BRIGHT + 'Valor inválido. Tente novamente.')
-            sleep(1)
-            file_path = input('\nCaminho do arquivo: ')
+def vt_get_file(api, file_path):
 
     response_upload = requests.post("https://www.virustotal.com/api/v3/files", 
         files = {"file": open(file_path, "rb")}, 

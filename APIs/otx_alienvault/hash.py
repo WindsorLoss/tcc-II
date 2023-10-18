@@ -45,8 +45,6 @@ def alv_get_hash(api, hash):
         if hashes['sha256']:
             print(Fore.YELLOW + Style.BRIGHT + f'  -> sha256: {hashes["sha256"]}')
 
-        if hashes['sha1']:
-            print(Fore.YELLOW + Style.BRIGHT + f'  -> SHA1: {hashes["sha1"]}')
 
 
         # ----------------- PULSE INFO -----------------
