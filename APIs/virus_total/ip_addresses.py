@@ -15,7 +15,7 @@ def vt_get_ip(api, ip_addr):
         analysis_stats = response['data']['attributes']['last_analysis_stats']
         analysis_results = response['data']['attributes']['last_analysis_results']
 
-        print(Fore.MAGENTA + Style.BRIGHT + '\n-=-=-=- VirusTotal -=-=-=-\n')
+        print(Fore.MAGENTA + Style.BRIGHT + '\n\n-=-=-=- VirusTotal -=-=-=-\n')
         print(Fore.CYAN + Style.BRIGHT + '\n=== DETALHES ===\n')
 
         reputation = attributes["reputation"]

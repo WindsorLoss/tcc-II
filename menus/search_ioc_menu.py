@@ -1,6 +1,7 @@
 from colorama import Fore, Back, Style, init
 from APIs.virus_total.ip_addresses import vt_get_ip
 from APIs.otx_alienvault.ip_addresses import alv_get_ip
+from APIs.ibm_xforce.ip_addresses import xfr_get_ip
 from APIs.virus_total.url import vt_get_url
 from APIs.otx_alienvault.url import alv_get_url
 from APIs.virus_total.files import vt_get_file
@@ -68,6 +69,7 @@ def search_ioc_menu():
 
             vt_get_ip(api_keys[api_names.index('virustotal')], ip_addr)
             alv_get_ip(api_keys[api_names.index('alienvault')], ip_addr)
+            xfr_get_ip(api_keys[api_names.index('xforce')], ip_addr)
 
         elif option == 4:
             url = input('\nDigite a URL: ')
