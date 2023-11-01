@@ -55,7 +55,8 @@ def alv_get_hash(api, hash):
 
         plugins = response_analysis["analysis"]["plugins"]
         for i in plugins:
-            if i != "peanomal" and "results" in plugins[i] and "detection" in plugins[i]["results"] and plugins[i]["results"]["detection"]:
+       
+            if i != "peanomal" and "results" in plugins[i] and plugins[i]["results"] and "detection" in plugins[i]["results"] and plugins[i]["results"]["detection"]:
                 print(Fore.YELLOW + Style.BRIGHT + f'Plugin: {i}')
                 print(f'Detecção: {plugins[i]["results"]["detection"]}\n')
 

@@ -1,6 +1,6 @@
 import requests
-import base64
 from colorama import Fore, Style, init
+from .utils.malware import malware_info
 init(autoreset=True)
 
 def xfr_get_ip(api, ip):
@@ -103,29 +103,9 @@ def xfr_get_ip(api, ip):
         malware = response_malware['malware']
         if malware:
             print(Fore.CYAN + Style.BRIGHT + '\n=== MALWARES ===\n')
-
+            
             print('Quantidade total de detecções: ' + Fore.RED + Style.BRIGHT + f'{len(malware)}\n')
-
-            print(Fore.YELLOW + Style.BRIGHT + "Detecções:\n")
-            if len(malware) <= 10:
-                for i in malware:
-                    print(Fore.YELLOW + Style.BRIGHT + f"Tipo do malware: {i['type']}")
-                    print(f"MD5: {i['md5']}")
-                    print(f"URI: {i['uri']}")
-                    print(f"Schema: {i['schema']}")
-                    print(f"Família de malware(s): {', '.join(i['family'])}")
-                    print("Contagem de detecções: " + Fore.RED + Style.BRIGHT + f"{i['count']}\n")
-            else:
-                i = 0
-                while i < 10:
-                    print(Fore.YELLOW + Style.BRIGHT + f"Tipo do malware: {malware[i]['type']}")
-                    print(f"MD5: {malware[i]['md5']}")
-                    print(f"URI: {malware[i]['uri']}")
-                    print(f"Schema: {malware[i]['schema']}")
-                    print(f"Família de malware(s): {', '.join(malware[i]['family'])}")
-                    print("Contagem de detecções: " + Fore.RED + Style.BRIGHT + f"{malware[i]['count']}\n")
-                    i += 1
-            print(Fore.YELLOW + Style.BRIGHT + f'-> Entre outras ({len(malware) - 10})')
+            malware_info(malware)
 
 
     except Exception as e:

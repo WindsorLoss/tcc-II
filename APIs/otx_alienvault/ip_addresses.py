@@ -2,7 +2,6 @@ import requests
 from colorama import Fore, Style, init
 from .utils.pulse_info import alv_pulse_info
 from .utils.url_list import alv_url_list
-from time import sleep
 init(autoreset=True)
 
 def alv_get_ip(api, ip_addr):

@@ -8,6 +8,7 @@ from APIs.virus_total.files import vt_get_file
 from APIs.otx_alienvault.files import alv_get_file
 from APIs.virus_total.hash import vt_get_hash
 from APIs.otx_alienvault.hash import alv_get_hash
+from APIs.ibm_xforce.hash import xfr_get_hash
 from menus.functions.keys_organizer import keys_organizer
 from time import sleep
 
@@ -59,6 +60,7 @@ def search_ioc_menu():
 
             vt_get_hash(api_keys[api_names.index('virustotal')], hash)
             alv_get_hash(api_keys[api_names.index('alienvault')], hash)
+            xfr_get_hash(api_keys[api_names.index('xforce')], hash)
         
         elif option == 3:        
             ip_addr = input('\nDigite o IP: ')
