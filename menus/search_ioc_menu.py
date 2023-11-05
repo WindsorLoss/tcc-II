@@ -4,6 +4,7 @@ from APIs.otx_alienvault.ip_addresses import alv_get_ip
 from APIs.ibm_xforce.ip_addresses import xfr_get_ip
 from APIs.virus_total.url import vt_get_url
 from APIs.otx_alienvault.url import alv_get_url
+from APIs.ibm_xforce.url import xfr_get_url
 from APIs.virus_total.files import vt_get_file
 from APIs.otx_alienvault.files import alv_get_file
 from APIs.virus_total.hash import vt_get_hash
@@ -81,3 +82,4 @@ def search_ioc_menu():
                 url = input('\nDigite a URL: ')
             vt_get_url(api_keys[api_names.index('virustotal')], url)
             alv_get_url(api_keys[api_names.index('alienvault')], url)
+            xfr_get_url(api_keys[api_names.index('xforce')], url)
