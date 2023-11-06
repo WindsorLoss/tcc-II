@@ -12,17 +12,20 @@ def xfr_get_hash(api, hash):
 
     try:
 
-        if response.status_code == 404:
-            print(Fore.RED + Style.BRIGHT + "Nenhum dado encontrado sobre a Hash informada\n")
+        print(Fore.MAGENTA + Style.BRIGHT + '\n\n-=-=-=- X-FORCE -=-=-=-\n')
+
+        if response.status_code != 200:
+            print(Fore.RED + Style.BRIGHT + "Nenhum dado encontrado sobre o arquivo/hash informado\n")
 
         else:
+
+            response = response.json()
+
             malware = response['malware']
             origins = malware['origins']
             risco = malware['risk'].upper()
             risco = risco == 'LOW' and Fore.GREEN + f"{risco}" or (risco == 'MEDIUM' and Fore.YELLOW + f"{risco}" or Fore.RED + f"{risco}")
             tags = response['tags']
-
-            print(Fore.MAGENTA + Style.BRIGHT + '\n\n-=-=-=- X-FORCE -=-=-=-\n')
 
             print(Fore.CYAN + Style.BRIGHT + '\n=== DETALHES ===\n')  
 
@@ -51,10 +54,14 @@ def xfr_get_hash(api, hash):
                     print(f'Fonte da detecção: {fonte["source"]}')
                     print(f'Visto pela primeira vez: {fonte["firstSeen"]}')
                     print(f'Visto pela última vez: {fonte["lastSeen"]}')
-                    print(f'Família do malware: {", ".join(fonte["family"])}')
-                    print(f'Tipo do malware: {fonte["malwareType"]}')
-                    print(f'Cobertura da comunidade: {fonte["detectionCoverage"]}%')
-                    print(f'Plataforma: {fonte["platform"]}')
+                    if fonte["family"]:
+                        print(f'Família do malware: {", ".join(fonte["family"])}')
+                    if "malwareType" in fonte:
+                        print(f'Tipo do malware: {fonte["malwareType"]}')
+                    if fonte["detectionCoverage"]:
+                        print(f'Cobertura da comunidade: {fonte["detectionCoverage"]}%')
+                    if "platform" in fonte:
+                        print(f'Plataforma: {fonte["platform"]}')
                     if "subPlatform" in fonte:
                         print(f'Sub-plataforma: {fonte["subPlatform"]}')
 

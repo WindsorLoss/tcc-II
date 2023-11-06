@@ -35,8 +35,7 @@ def vt_get_url(api, url):
         analysis_stats = response['data']['attributes']['last_analysis_stats']
         analysis_results = response['data']['attributes']['last_analysis_results']
 
-        if len(analysis_results) == 0:
-            print(Fore.YELLOW + '\nCarregando...')    
+        if len(analysis_results) == 0: 
             sleep(5)
             vt_get_url(api, url)
 
@@ -85,13 +84,13 @@ def vt_get_url(api, url):
                 for i in analysis_results:
 
                     if analysis_results[i]['category'] == 'malicious' or analysis_results[i]['category'] == 'suspicious':
-                        print(Fore.YELLOW + (analysis_results[i]['engine_name']).upper())
+                        print(Fore.YELLOW + Style.BRIGHT + (analysis_results[i]['engine_name']).upper())
 
                         category = analysis_results[i]['category']
                         if category == 'malicious':
-                            category = Fore.RED + f"{category}"
+                            category = Fore.RED + Style.BRIGHT + f"{category}"
                         else:
-                            category = Fore.YELLOW + f"{category}"
+                            category = Fore.YELLOW + Style.BRIGHT + f"{category}"
 
                         print(f"Classificação: {category}")
                         print(f"Resultado: {analysis_results[i]['result']}")

@@ -183,16 +183,5 @@ def alv_get_url(api, str):
 
 
     except Exception as e:
-        if response_general:
-            print(response_general)
-
-        if response_url_list:
-            print(response_url_list)
-        
-        if response_geo:
-            print(response_geo)
-
-        if response_malware:
-            print(response_malware)
             
         print(e.message, e.args)

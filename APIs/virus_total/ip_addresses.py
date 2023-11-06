@@ -50,15 +50,15 @@ def vt_get_ip(api, ip_addr):
             for i in analysis_results:
 
                 if analysis_results[i]['category'] == 'malicious' or analysis_results[i]['category'] == 'suspicious':
-                        print(Fore.YELLOW + (analysis_results[i]['engine_name']).upper())
+                        print(Fore.YELLOW + Style.BRIGHT + (analysis_results[i]['engine_name']).upper())
 
                         category = analysis_results[i]['category']
                         if category == 'malicious':
-                            category = Fore.RED + f"{category}"
+                            category = Fore.RED + Style.BRIGHT + f"{category}"
                         else:
-                            category = Fore.YELLOW + f"{category}"
+                            category = Fore.YELLOW + Style.BRIGHT + f"{category}"
 
-                        print(f"Classificação: {analysis_results[i]['category']}")
+                        print(f"Classificação: {category}")
                         print(f"Resultado: {analysis_results[i]['result']}")
                         print(f"Método: {analysis_results[i]['method']}\n")
 

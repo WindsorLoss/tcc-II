@@ -19,7 +19,7 @@ def xfr_get_ip(api, ip):
 
         print(Fore.MAGENTA + Style.BRIGHT + '\n\n-=-=-=- X-FORCE -=-=-=-\n')
 
-        if response.status_code == 404:
+        if response.status_code != 200:
             print(Fore.RED + Style.BRIGHT + "Nenhum dado encontrado sobre informações gerais do IP informado\n")
             
         else:
@@ -108,7 +108,7 @@ def xfr_get_ip(api, ip):
                 print(Fore.YELLOW + Style.BRIGHT + f'-> Entre outras ({len(historico) - 10})')
 
 
-        if response_malware.status_code == 404:
+        if response_malware.status_code != 200:
             print(Fore.RED + Style.BRIGHT + "Nenhum dado encontrado sobre malwares do IP informado\n")
 
         else:

@@ -5,26 +5,26 @@ init(autoreset=True)
 
 def xfr_get_url(api, url):
 
+    response = requests.get(f"https://api.xforce.ibmcloud.com/api/url/{url}", headers= {
+        "Authorization": f"Basic {api}",
+        "accept": "application/json"
+    })
+
+    response_history = requests.get(f"https://api.xforce.ibmcloud.com/api/url/history/{url}", headers= {
+        "Authorization": f"Basic {api}",
+        "accept": "application/json"
+    })
+
+    response_malware = requests.get(f"https://api.xforce.ibmcloud.com/api/url/malware/{url}", headers= {
+        "Authorization": f"Basic {api}",
+        "accept": "application/json"
+    })
+
     try:
-
-        response = requests.get(f"https://api.xforce.ibmcloud.com/api/url/{url}", headers= {
-            "Authorization": f"Basic {api}",
-            "accept": "application/json"
-        })
-
-        response_history = requests.get(f"https://api.xforce.ibmcloud.com/api/url/history/{url}", headers= {
-            "Authorization": f"Basic {api}",
-            "accept": "application/json"
-        })
-
-        response_malware = requests.get(f"https://api.xforce.ibmcloud.com/api/url/malware/{url}", headers= {
-            "Authorization": f"Basic {api}",
-            "accept": "application/json"
-        })
-
+        
         print(Fore.MAGENTA + Style.BRIGHT + '\n\n-=-=-=- X-FORCE -=-=-=-\n')
 
-        if response.status_code == 404 :
+        if response.status_code != 200:
             print(Fore.RED + Style.BRIGHT + "Nenhum dado encontrado sobre informações gerais da URL informada\n")
         
         else:
@@ -77,7 +77,7 @@ def xfr_get_url(api, url):
                         i += 1
                     print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(tags) - 10})') 
 
-        if response_history.status_code == 404:
+        if response_history.status_code != 200:
 
             print(Fore.RED + Style.BRIGHT + "Nenhum dado encontrado sobre histórico da URL informada\n")
         
@@ -130,7 +130,7 @@ def xfr_get_url(api, url):
 
                         print(Fore.YELLOW + Style.BRIGHT + f'-> Entre outras ({len(historico) - 10})')
 
-        if response_malware.status_code == 404:
+        if response_malware.status_code != 200:
 
             print(Fore.RED + Style.BRIGHT + "Nenhum dado encontrado sobre malwares da URL informada\n")
         
@@ -145,4 +145,3 @@ def xfr_get_url(api, url):
 
     except Exception as e:
         print(e.message, e.args)
-
