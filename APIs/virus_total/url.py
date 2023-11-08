@@ -1,6 +1,7 @@
 from time import sleep
 import requests
 from colorama import Fore, Style, init
+from .utils.detection_info import detection_info
 init(autoreset=True)
 
 def vt_get_url(api, url):       
@@ -66,35 +67,17 @@ def vt_get_url(api, url):
                 print(Fore.YELLOW + i)
                 print(f"{attributes['categories'][i]}\n")
 
-            if len(attributes["tags"]) > 0:
+            if attributes["tags"]:
                 print(Fore.CYAN + Style.BRIGHT + '\n=== TAGS ===\n')
-                for i in attributes['tags']:
-                    print(f'-> {i}')
 
-            print(Fore.CYAN + Style.BRIGHT + f'\n=== CONTAGEM TOTAL DAS CLASSIFICAÇÕES ===\n')
-            for i in analysis_stats:
-                print(f'{i}: {analysis_stats[i]}')
+                for i in attributes['tags'][0:10]:
+                    print(Fore.YELLOW + Style.BRIGHT + f'  -> {i}')
 
-            if analysis_stats['malicious'] == 0 and analysis_stats['suspicious'] == 0:
-                print(Fore.MAGENTA + '\nNenhum motor de busca identificou este IP como malicioso ou como suspeito\n')
+                if len(attributes['tags']) > 10:
+                    print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(attributes["tags"]) - 10})')
 
-            else:
-                print(Fore.CYAN + Style.BRIGHT + f'\n=== DETECÇÃO ===\n')
-
-                for i in analysis_results:
-
-                    if analysis_results[i]['category'] == 'malicious' or analysis_results[i]['category'] == 'suspicious':
-                        print(Fore.YELLOW + Style.BRIGHT + (analysis_results[i]['engine_name']).upper())
-
-                        category = analysis_results[i]['category']
-                        if category == 'malicious':
-                            category = Fore.RED + Style.BRIGHT + f"{category}"
-                        else:
-                            category = Fore.YELLOW + Style.BRIGHT + f"{category}"
-
-                        print(f"Classificação: {category}")
-                        print(f"Resultado: {analysis_results[i]['result']}")
-                        print(f"Método: {analysis_results[i]['method']}\n")
+            # ------------------- DETECÇÕES -------------------
+            detection_info(attributes, analysis_stats, analysis_results)
 
             if 'threat_names' in attributes and len(attributes['threat_names']) > 0:
                 print(Fore.CYAN + Style.BRIGHT + '\n=== NOME DAS AMEAÇAS ===\n')
@@ -111,6 +94,11 @@ def vt_get_url(api, url):
                 for i in range(len(attributes["outgoing_links"])):
                     print(f'{i + 1} -> {attributes["outgoing_links"][i]}') 
               
+    except Exception as e:
+        
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(e)
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
 
     except:
 

@@ -22,7 +22,7 @@ def xfr_get_url(api, url):
 
     try:
         
-        print(Fore.MAGENTA + Style.BRIGHT + '\n\n-=-=-=- X-FORCE -=-=-=-\n')
+        print(Fore.MAGENTA + Style.BRIGHT + '\n-=-=-=- X-FORCE -=-=-=-\n')
 
         if response.status_code != 200:
             print(Fore.RED + Style.BRIGHT + "Nenhum dado encontrado sobre informações gerais da URL informada\n")
@@ -67,15 +67,11 @@ def xfr_get_url(api, url):
             tags = response["tags"]
             if tags:
                 print("Tags:")
-                if len(tags) <= 10:
-                    for i in tags:
-                        print(Fore.YELLOW + Style.BRIGHT + f"  -> {i['tag']}")
-                else:
-                    i = 0
-                    while i < 10:
-                        print(Fore.YELLOW + Style.BRIGHT + f"  -> {tags[i]['tag']}")
-                        i += 1
-                    print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(tags) - 10})') 
+                for i in tags[0:10]:
+                    print(Fore.YELLOW + Style.BRIGHT + f"  -> {i['tag']}")
+                
+                if len(tags) > 10:
+                    print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(tags) - 10})')
 
         if response_history.status_code != 200:
 
@@ -88,47 +84,34 @@ def xfr_get_url(api, url):
             if historico:
                 print(Fore.CYAN + Style.BRIGHT + '\n=== HISTÓRICO ===\n')
 
-                historico.sort(key=lambda dict: dict["score"], reverse=True)
+                has_score = True
+                for i in historico:
+                    if "score" not in i:
+                        has_score = False
+                if has_score:
+                    historico.sort(key=lambda dict: dict["score"], reverse=True)
+                
+                for i in historico[0:10]:
+                    dia, hora = i["created"].split('T')
+                    dia = '-'.join(list(reversed(dia.split('-'))))
+                    hora = hora.split('.')[0]
+                    print(Fore.YELLOW + Style.BRIGHT + f'Data da detecção: {dia}, às {hora}')
 
-                if len(historico) <= 10:
-                    for i in historico:
-                        dia, hora = i["created"].split('T')
-                        dia = '-'.join(list(reversed(dia.split('-'))))
-                        hora = hora.split('.')[0]
-                        print(Fore.YELLOW + Style.BRIGHT + f'Data da detecção: {dia}, às {hora}')
-
-                        if i["cats"]:
-                            print('Categorias:')
-                            for j in i["cats"]:
-                                print(Fore.YELLOW + Style.BRIGHT + f'  -> {j}')
-                                print(f'       Confiança: {i["cats"][j]["confidence"]}')
-                                print(f'       Descrição: {i["cats"][j]["description"]}')
-                                print(f'       Motivo: {i["cats"][j]["reasons"][0]["description"]}\n')
-                            
-
+                    if i["cats"]:
+                        print('Categorias:')
+                        for j in i["cats"]:
+                            print(Fore.YELLOW + Style.BRIGHT + f'  -> {j}')
+                            print(f'       Confiança: {i["cats"][j]["confidence"]}')
+                            print(f'       Descrição: {i["cats"][j]["description"]}')
+                            print(f'       Motivo: {i["cats"][j]["reasons"][0]["description"]}\n')
+                        
+                    if "score" in i:
                         risco = i["score"]
                         risco = risco < 4 and Fore.GREEN + f"{risco}" or (risco < 7 and Fore.YELLOW + f"{risco}" or Fore.RED + f"{risco}")
-                        print(Style.BRIGHT + f'Risco: {risco}\n')
+                        print(Style.BRIGHT + f'       Risco: {risco}\n')
 
-                else:
-                        i = 0
-                        while i < 10:
-                            dia, hora = historico[i]["created"].split('T')
-                            dia = '-'.join(list(reversed(dia.split('-'))))
-                            hora = hora.split('.')[0]
-                            print(Fore.YELLOW + Style.BRIGHT + f'Data da detecção: {dia}, às {hora}')
-
-                            if "malware_extended" in historico[i]:
-                                malware, *resto = historico[i]['malware_extended'].keys()
-                                print(Fore.RED + Style.BRIGHT + f'{malware}: {historico[i]["malware_extended"][malware]}')
-
-                            risco = historico[i]["score"]
-                            risco = risco < 4 and Fore.GREEN + f"{risco}" or (risco < 7 and Fore.YELLOW + f"{risco}" or Fore.RED + f"{risco}")
-                            print(Style.BRIGHT + f'Risco: {risco}')
-                            
-                            i += 1
-
-                        print(Fore.YELLOW + Style.BRIGHT + f'-> Entre outras ({len(historico) - 10})')
+                if len(historico) > 10:
+                    print(Fore.YELLOW + Style.BRIGHT + f'-> Entre outras ({len(historico) - 10})')
 
         if response_malware.status_code != 200:
 
@@ -144,4 +127,6 @@ def xfr_get_url(api, url):
                 malware_info(malwares)
 
     except Exception as e:
-        print(e.message, e.args)
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(e)
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")

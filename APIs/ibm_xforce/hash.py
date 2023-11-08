@@ -12,7 +12,7 @@ def xfr_get_hash(api, hash):
 
     try:
 
-        print(Fore.MAGENTA + Style.BRIGHT + '\n\n-=-=-=- X-FORCE -=-=-=-\n')
+        print(Fore.MAGENTA + Style.BRIGHT + '\n-=-=-=- X-FORCE -=-=-=-\n')
 
         if response.status_code != 200:
             print(Fore.RED + Style.BRIGHT + "Nenhum dado encontrado sobre o arquivo/hash informado\n")
@@ -34,14 +34,10 @@ def xfr_get_hash(api, hash):
 
             if tags:
                 print("Tags:")
-                if len(tags) <= 10:
-                    for i in tags:
-                        print(Fore.YELLOW + Style.BRIGHT + f"  -> {i['tag']}")
-                else:
-                    i = 0
-                    while i < 10:
-                        print(Fore.YELLOW + Style.BRIGHT + f"  -> {tags[i]['tag']}")
-                        i += 1
+                for i in tags[0:10]:
+                    print(Fore.YELLOW + Style.BRIGHT + f"  -> {i['tag']}")
+                
+                if len(tags) > 10:
                     print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(tags) - 10})')
 
             print(Fore.CYAN + Style.BRIGHT + '\n=== MALWARES ===\n')  
@@ -70,4 +66,6 @@ def xfr_get_hash(api, hash):
                     malware_info(origins[i])
 
     except Exception as e:
-        print(e.message, e.args)
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(e)
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")

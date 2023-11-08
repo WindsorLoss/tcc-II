@@ -17,7 +17,7 @@ def xfr_get_ip(api, ip):
 
     try:
 
-        print(Fore.MAGENTA + Style.BRIGHT + '\n\n-=-=-=- X-FORCE -=-=-=-\n')
+        print(Fore.MAGENTA + Style.BRIGHT + '\n-=-=-=- X-FORCE -=-=-=-\n')
 
         if response.status_code != 200:
             print(Fore.RED + Style.BRIGHT + "Nenhum dado encontrado sobre informações gerais do IP informado\n")
@@ -54,14 +54,10 @@ def xfr_get_ip(api, ip):
             tags = response["tags"]
             if tags:
                 print("Tags:")
-                if len(tags) <= 10:
-                    for i in tags:
-                        print(Fore.YELLOW + Style.BRIGHT + f"  -> {i['tag']}")
-                else:
-                    i = 0
-                    while i < 10:
-                        print(Fore.YELLOW + Style.BRIGHT + f"  -> {tags[i]['tag']}")
-                        i += 1
+                for i in tags[0:10]:
+                    print(Fore.YELLOW + Style.BRIGHT + f"  -> {i['tag']}")
+                
+                if len(tags) > 10:
                     print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(tags) - 10})')
 
 
@@ -70,41 +66,23 @@ def xfr_get_ip(api, ip):
             historico = response["history"]
             historico.sort(key=lambda dict: dict["score"], reverse=True)
 
-            if len(historico) <= 10:
-                for i in historico:
-                    dia, hora = i["created"].split('T')
-                    dia = '-'.join(list(reversed(dia.split('-'))))
-                    hora = hora.split('.')[0]
-                    print(Fore.YELLOW + Style.BRIGHT + f'Data da detecção: {dia}, às {hora}')
+            
+            for i in historico[0:10]:
+                dia, hora = i["created"].split('T')
+                dia = '-'.join(list(reversed(dia.split('-'))))
+                hora = hora.split('.')[0]
+                print(Fore.YELLOW + Style.BRIGHT + f'Data da detecção: {dia}, às {hora}')
 
-                    if "malware_extended" in i:
-                        malware, *resto = i['malware_extended'].keys()
-                        print(Fore.RED + Style.BRIGHT + f'{malware}: {i["malware_extended"][malware]}')
+                if "malware_extended" in i:
+                    malware, *resto = i['malware_extended'].keys()
+                    print(Fore.RED + Style.BRIGHT + f'{malware}: {i["malware_extended"][malware]}')
 
-                    risco = i["score"]
-                    risco = risco < 4 and Fore.GREEN + f"{risco}" or (risco < 7 and Fore.YELLOW + f"{risco}" or Fore.RED + f"{risco}")
-                    print(Style.BRIGHT + f'Risco: {risco}')
-                    print(f'Motivo: {i["reason"]}\n')
+                risco = i["score"]
+                risco = risco < 4 and Fore.GREEN + f"{risco}" or (risco < 7 and Fore.YELLOW + f"{risco}" or Fore.RED + f"{risco}")
+                print(Style.BRIGHT + f'Risco: {risco}')
+                print(f'Motivo: {i["reason"]}\n')
 
-            else:
-                i = 0
-                while i < 10:
-                    dia, hora = historico[i]["created"].split('T')
-                    dia = '-'.join(list(reversed(dia.split('-'))))
-                    hora = hora.split('.')[0]
-                    print(Fore.YELLOW + Style.BRIGHT + f'Data da detecção: {dia}, às {hora}')
-
-                    if "malware_extended" in historico[i]:
-                        malware, *resto = historico[i]['malware_extended'].keys()
-                        print(Fore.RED + Style.BRIGHT + f'{malware}: {historico[i]["malware_extended"][malware]}')
-
-                    risco = historico[i]["score"]
-                    risco = risco < 4 and Fore.GREEN + f"{risco}" or (risco < 7 and Fore.YELLOW + f"{risco}" or Fore.RED + f"{risco}")
-                    print(Style.BRIGHT + f'Risco: {risco}')
-                    print(f'Motivo: {historico[i]["reason"]}\n')
-                    
-                    i += 1
-
+            if len(historico) > 10:
                 print(Fore.YELLOW + Style.BRIGHT + f'-> Entre outras ({len(historico) - 10})')
 
 
@@ -122,4 +100,6 @@ def xfr_get_ip(api, ip):
 
 
     except Exception as e:
-        print(e.message, e.args)
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(e)
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")

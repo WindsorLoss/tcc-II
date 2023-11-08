@@ -14,6 +14,7 @@ from menus.functions.ip_checker import ip_checker
 from menus.functions.url_checker import url_checker
 from time import sleep
 import os
+import multiprocessing as mp
 
 
 init(autoreset=True)
@@ -55,10 +56,16 @@ def search_ioc_menu():
                     file = "\\\\".join(file.split('\\'))
 
                 hash = file_to_hash(file)
-                print(hash)
-                vt_get_hash(api_keys[api_names.index('virustotal')], hash)
-                alv_get_hash(api_keys[api_names.index('alienvault')], hash)
-                xfr_get_hash(api_keys[api_names.index('xforce')], hash)
+                p1 = mp.Process(target=vt_get_hash, args=(api_keys[api_names.index('virustotal')], hash))
+                p2 = mp.Process(target=alv_get_hash, args=(api_keys[api_names.index('alienvault')], hash))
+                p3 = mp.Process(target=xfr_get_hash, args=(api_keys[api_names.index('xforce')], hash))
+
+                p1.start()
+                p2.start()
+                p3.start()
+                p1.join()
+                p2.join()
+                p3.join()
             
             elif option == 2:
                 hash = input('\nDigite a hash: ')
@@ -67,9 +74,16 @@ def search_ioc_menu():
                     sleep(1)
                     hash = input('\nDigite a hash: ')
 
-                vt_get_hash(api_keys[api_names.index('virustotal')], hash)
-                alv_get_hash(api_keys[api_names.index('alienvault')], hash)
-                xfr_get_hash(api_keys[api_names.index('xforce')], hash)
+                p1 = mp.Process(target=vt_get_hash, args=(api_keys[api_names.index('virustotal')], hash))
+                p2 = mp.Process(target=alv_get_hash, args=(api_keys[api_names.index('alienvault')], hash))
+                p3 = mp.Process(target=xfr_get_hash, args=(api_keys[api_names.index('xforce')], hash))
+
+                p1.start()
+                p2.start()
+                p3.start()
+                p1.join()
+                p2.join()
+                p3.join()
             
             elif option == 3:        
                 ip_addr = input('\nDigite o IP: ')
@@ -78,9 +92,16 @@ def search_ioc_menu():
                     sleep(1)
                     ip_addr = input('\nDigite o IP: ')
 
-                vt_get_ip(api_keys[api_names.index('virustotal')], ip_addr)
-                alv_get_ip(api_keys[api_names.index('alienvault')], ip_addr)
-                xfr_get_ip(api_keys[api_names.index('xforce')], ip_addr)
+                p1 = mp.Process(target=vt_get_ip, args=(api_keys[api_names.index('virustotal')], ip_addr))
+                p2 = mp.Process(target=alv_get_ip, args=(api_keys[api_names.index('alienvault')], ip_addr))
+                p3 = mp.Process(target=xfr_get_ip, args=(api_keys[api_names.index('xforce')], ip_addr))
+
+                p1.start()
+                p2.start()
+                p3.start()
+                p1.join()
+                p2.join()
+                p3.join()
 
             elif option == 4:
                 url = input('\nDigite a URL: ')
@@ -88,9 +109,17 @@ def search_ioc_menu():
                     print(Fore.RED + Style.BRIGHT + 'Valor inválido. Tente novamente.')
                     sleep(1)
                     url = input('\nDigite a URL: ')
-                vt_get_url(api_keys[api_names.index('virustotal')], url)
-                alv_get_url(api_keys[api_names.index('alienvault')], url)
-                xfr_get_url(api_keys[api_names.index('xforce')], url)
+
+                p1 = mp.Process(target=vt_get_url, args=(api_keys[api_names.index('virustotal')], url))
+                p2 = mp.Process(target=alv_get_url, args=(api_keys[api_names.index('alienvault')], url))
+                p3 = mp.Process(target=xfr_get_url, args=(api_keys[api_names.index('xforce')], url))
+
+                p1.start()
+                p2.start()
+                p3.start()
+                p1.join()
+                p2.join()
+                p3.join()
 
         except: 
             print(Fore.RED + Style.BRIGHT + '\nOpção inválida, tente novamente.')

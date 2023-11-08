@@ -1,6 +1,6 @@
 import requests
 from colorama import Fore, Style, init
-from time import sleep
+from .utils.detection_info import detection_info
 init(autoreset=True)
 
 def vt_get_ip(api, ip_addr):
@@ -36,34 +36,14 @@ def vt_get_ip(api, ip_addr):
         if "jarm" in attributes:
             print(f'JARM fingerprint: {attributes["jarm"]}\n')
 
+        # ------------------- DETECÇÕES -------------------
+        detection_info(attributes, analysis_stats, analysis_results)
 
-        print(Fore.CYAN + Style.BRIGHT + f'\n=== CONTAGEM TOTAL DAS CLASSIFICAÇÕES ===\n')
-        for i in analysis_stats:
-            print(f'{i}: {analysis_stats[i]}')
-
-        if analysis_stats['malicious'] == 0 and analysis_stats['suspicious'] == 0:
-            print(Fore.MAGENTA + '\nNenhum motor de busca identificou este IP como malicioso ou como suspeito\n')
-
-        else:
-            print(Fore.CYAN + Style.BRIGHT + f'\n=== DETECÇÃO ===\n')
-
-            for i in analysis_results:
-
-                if analysis_results[i]['category'] == 'malicious' or analysis_results[i]['category'] == 'suspicious':
-                        print(Fore.YELLOW + Style.BRIGHT + (analysis_results[i]['engine_name']).upper())
-
-                        category = analysis_results[i]['category']
-                        if category == 'malicious':
-                            category = Fore.RED + Style.BRIGHT + f"{category}"
-                        else:
-                            category = Fore.YELLOW + Style.BRIGHT + f"{category}"
-
-                        print(f"Classificação: {category}")
-                        print(f"Resultado: {analysis_results[i]['result']}")
-                        print(f"Método: {analysis_results[i]['method']}\n")
 
     except Exception as e:
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
         print(e)
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
 
     except:
         print(Fore.RED + Style.BRIGHT + '\n=== ERRO ENCONTRADO - Virus Total ===\n')

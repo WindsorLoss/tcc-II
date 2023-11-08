@@ -16,40 +16,28 @@ def alv_pulse_info(response):
     pulse_references = response['pulse_info']['references']
     if pulse_references:
         print("Referências do Pulse:")
-        if len(pulse_references) <= 10:
-            for i in pulse_references:
-                print(Fore.YELLOW + Style.BRIGHT + f"  -> {i}")
-        else:
-            i = 0
-            while i < 10:
-                print(Fore.YELLOW + Style.BRIGHT + f"  -> {pulse_references[i]}")
-                i += 1
+        for i in pulse_references[0:10]:
+            print(Fore.YELLOW + Style.BRIGHT + f"  -> {i}")
+
+        if len(pulse_references) > 10:
             print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(pulse_references) - 10})')
 
     related = response['pulse_info']['related']
 
     if related['alienvault']['malware_families']:
         print("\nFamilias de malware identificadas pelo Alien Vault:")
+        
+        for i in related['alienvault']['malware_families'][0:10]:
+            print(Fore.YELLOW + Style.BRIGHT + f'  -> {i}')
 
-        if len(related['alienvault']['malware_families']) <= 10:
-            for i in related['alienvault']['malware_families']:
-                print(Fore.YELLOW + Style.BRIGHT + f'  -> {i}')
-        else:
-            i = 0
-            while i < 10:
-                print(Fore.YELLOW + Style.BRIGHT + f"  -> {related['alienvault']['malware_families'][i]}")
-                i += 1
+        if len(related['alienvault']['malware_families']) > 10:
             print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(related["alienvault"]["malware_families"]) - 10})')
 
     if related['other']['malware_families']:
         print("\nFamilias de malware identificadas por outras ferramentas:")
 
-        if len(related['other']['malware_families']) <= 10:
-            for i in related['other']['malware_families']:
-                print(Fore.YELLOW + Style.BRIGHT + f'  -> {i}')
-        else:
-            i = 0
-            while i < 10:
-                print(Fore.YELLOW + Style.BRIGHT + f"  -> {related['other']['malware_families'][i]}")
-                i += 1
+        for i in related['other']['malware_families'][0:10]:
+            print(Fore.YELLOW + Style.BRIGHT + f'  -> {i}')
+            
+        if len(related['other']['malware_families']) > 10:
             print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(related["other"]["malware_families"]) - 10})')

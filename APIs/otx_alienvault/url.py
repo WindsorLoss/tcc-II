@@ -43,7 +43,7 @@ def alv_get_url(api, str):
                 isComplete = response_submitted_urls["results"][0]["complete_date"]
 
                 while not isComplete:
-                    sleep(10)
+                    sleep(5)
                     response_submitted_urls = requests.get(f'https://otx.alienvault.com/api/v1/indicators/submitted_urls', 
                     headers={
                         'X-OTX-API-KEY': api
@@ -183,5 +183,7 @@ def alv_get_url(api, str):
 
 
     except Exception as e:
-            
-        print(e.message, e.args)
+        
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(e)
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")

@@ -1,5 +1,6 @@
 import requests
 from colorama import Fore, Style, init
+from .utils.detection_info import detection_info
 init(autoreset=True)
 
 def vt_get_hash(api, hash):
@@ -43,8 +44,12 @@ def vt_get_hash(api, hash):
             
             if 'tags' in attributes:
                 print("\nTags:")
-                for i in attributes['tags']:
+                for i in attributes['tags'][0:10]:
                     print(Fore.YELLOW + Style.BRIGHT + f'  -> {i}')
+
+                if len(attributes['tags']) > 10:
+                    print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(attributes["tags"]) - 10})')
+
 
 
             print(Fore.CYAN + Style.BRIGHT + '\n=== ANÁLISE DO ARQUIVO ===\n')
@@ -105,39 +110,10 @@ def vt_get_hash(api, hash):
             if 'imphash' in attributes:
                 print(f'IMPHASH: {attributes["imphash"]}')
 
-            print(Fore.CYAN + Style.BRIGHT + f'\n=== CONTAGEM TOTAL DAS CLASSIFICAÇÕES ===\n')
 
-            reputation = attributes["reputation"]
-            if reputation < 0:
-                reputation = Fore.RED + f"{reputation}"
-            else:
-                reputation = Fore.GREEN + f"{reputation}"
-            print(f'Reputação: {reputation}')
-            print(f"Total de vezes enviado para análise: {attributes['times_submitted']}\n")
+            # ------------------- DETECÇÕES -------------------
+            detection_info(attributes, analysis_stats, analysis_results)
 
-            for i in analysis_stats:
-                print(f'{i}: {analysis_stats[i]}')
-
-            if analysis_stats['malicious'] == 0 and analysis_stats['suspicious'] == 0:
-                print(Fore.MAGENTA + '\nNenhum motor de busca identificou este IP como malicioso ou como suspeito\n')
-
-            else:
-                print(Fore.CYAN + Style.BRIGHT + f'\n=== DETECÇÃO ===\n')
-
-                for i in analysis_results:
-
-                    if analysis_results[i]['category'] == 'malicious' or analysis_results[i]['category'] == 'suspicious':
-                            print(Fore.YELLOW + Style.BRIGHT + (analysis_results[i]['engine_name']).upper())
-
-                            category = analysis_results[i]['category']
-                            if category == 'malicious':
-                                category = Fore.RED + Style.BRIGHT + f"{category}"
-                            else:
-                                category = Fore.YELLOW + Style.BRIGHT + f"{category}"
-
-                            print(f"Classificação: {category}")
-                            print(f"Resultado: {analysis_results[i]['result']}")
-                            print(f"Método: {analysis_results[i]['method']}\n")
 
             if 'popular_threat_classification' in attributes:
                 ameaca_popular = attributes['popular_threat_classification']
@@ -176,10 +152,13 @@ def vt_get_hash(api, hash):
                 
                     print('\n')
 
+    except Exception as e:
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(e)
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+
     except:
         print(Fore.RED + Style.BRIGHT + '\n=== ERRO ENCONTRADO - Virus Total ===\n')
-
-        print(response)
 
         print(f'Mensagem: {response["error"]["message"]}')
         print(f'Código: {response["error"]["code"]}\n')

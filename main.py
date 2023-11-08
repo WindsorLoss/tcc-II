@@ -13,7 +13,7 @@ def main():
 
         print(Fore.CYAN + Style.BRIGHT + '\n=== O UM PROGRAMA PARA TUDO ANALISAR ===\n')
         
-        print(Fore.YELLOW + 'Escolha uma opção:')
+        print(Fore.YELLOW + Style.BRIGHT + 'Escolha uma opção:')
         print('1 - Pesquisar IOCs')
         print('2 - Configurar chaves de API')
         print('3 - Créditos (?)')
