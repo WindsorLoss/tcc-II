@@ -21,19 +21,24 @@ def detection_info(attributes, analysis_stats, analysis_results):
     else:
         print(Fore.CYAN + Style.BRIGHT + f'\n=== DETECÇÃO ===\n')
 
-        # analysis_results = dict(itertools.islice(analysis_results.items(),10))
+        malicious_or_suspicious_itens = []
 
         for i in analysis_results:
-
             if analysis_results[i]['category'] == 'malicious' or analysis_results[i]['category'] == 'suspicious':
-                    print(Fore.YELLOW + Style.BRIGHT + (analysis_results[i]['engine_name']).upper())
+                malicious_or_suspicious_itens.append(analysis_results[i])
 
-                    category = analysis_results[i]['category']
-                    if category == 'malicious':
-                        category = Fore.RED + Style.BRIGHT + f"{category}"
-                    else:
-                        category = Fore.YELLOW + Style.BRIGHT + f"{category}"
+        for i in malicious_or_suspicious_itens[0:10]:
+            print(Fore.YELLOW + Style.BRIGHT + (i['engine_name']).upper())
 
-                    print(f"Classificação: {category}")
-                    print(f"Resultado: {analysis_results[i]['result']}")
-                    print(f"Método: {analysis_results[i]['method']}\n")
+            category = i['category']
+            if category == 'malicious':
+                category = Fore.RED + Style.BRIGHT + f"{category}"
+            else:
+                category = Fore.YELLOW + Style.BRIGHT + f"{category}"
+
+            print(f"Classificação: {category}")
+            print(f"Resultado: {i['result']}")
+            print(f"Método: {i['method']}\n")
+
+        if len(malicious_or_suspicious_itens) > 10:
+            print(Fore.YELLOW + Style.BRIGHT + f'-> Entre outras ({len(malicious_or_suspicious_itens) - 10})\n')

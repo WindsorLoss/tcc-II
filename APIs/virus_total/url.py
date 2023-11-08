@@ -81,18 +81,25 @@ def vt_get_url(api, url):
 
             if 'threat_names' in attributes and len(attributes['threat_names']) > 0:
                 print(Fore.CYAN + Style.BRIGHT + '\n=== NOME DAS AMEAÇAS ===\n')
-                for i in attributes['threat_names']:
+                for i in attributes['threat_names'][0:10]:
                     print(f'-> {i}') 
+                if len(attributes['threat_names']) > 10:
+                    print(Fore.YELLOW + Style.BRIGHT + f'-> Entre outras ({len(attributes["threat_names"]) - 10})')
+
             
             if "redirection_chain" in attributes:
                 print(Fore.CYAN + Style.BRIGHT + f'\n=== CADEIA DE REDIRECIONAMENTOS ===\n')
-                for i in range(len(attributes["redirection_chain"])):
+                for i in range(len(attributes["redirection_chain"][0:10])):
                     print(f'{i + 1} -> {attributes["redirection_chain"][i]}')
+                if len(attributes['redirection_chain']) > 10:
+                    print(Fore.YELLOW + Style.BRIGHT + f'-> Entre outras ({len(attributes["redirection_chain"]) - 10})')
 
             if "outgoing_links" in attributes:
                 print(Fore.CYAN + Style.BRIGHT + f'\n=== OUTGOING LINKS ===\n')
-                for i in range(len(attributes["outgoing_links"])):
-                    print(f'{i + 1} -> {attributes["outgoing_links"][i]}') 
+                for i in range(len(attributes["outgoing_links"][0:10])):
+                    print(f'{i + 1} -> {attributes["outgoing_links"][i]}')
+                if len(attributes['outgoing_links']) > 10:
+                    print(Fore.YELLOW + Style.BRIGHT + f'-> Entre outras ({len(attributes["outgoing_links"]) - 10})')
               
     except Exception as e:
         

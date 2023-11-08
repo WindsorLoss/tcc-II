@@ -51,7 +51,6 @@ def vt_get_hash(api, hash):
                     print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(attributes["tags"]) - 10})')
 
 
-
             print(Fore.CYAN + Style.BRIGHT + '\n=== ANÁLISE DO ARQUIVO ===\n')
             
             if 'signature_info' in attributes:
@@ -75,7 +74,7 @@ def vt_get_hash(api, hash):
                 print(f'  Tipo do arquivo: {attributes["detectiteasy"]["filetype"]}')
                 print(f'  Valores:')
                 valores = attributes["detectiteasy"]["values"]
-                for i in range(len(valores)):
+                for i in range(len(valores[0:10])):
                     if 'info' in valores:
                         print( Fore.YELLOW + Style.BRIGHT + f'    -> Informação: {valores[i]["info"]}')
 
@@ -87,17 +86,25 @@ def vt_get_hash(api, hash):
 
                     if 'name' in valores:
                         print(Fore.YELLOW + Style.BRIGHT + f'    -> Nome: {valores[i]["name"]}')
+                if len(valores) > 10:
+                    print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(valores) - 10})')
+
 
             if 'known_distributors' in attributes:
                 print('\nDistribuidores conhhecidos:')
-                for i in attributes['known_distributors']['distributors']:
+                for i in attributes['known_distributors']['distributors'][0:10]:
                     print(Fore.YELLOW + Style.BRIGHT + f'  -> {i}')
+                if len(attributes['known_distributors']['distributors']) > 10:
+                    print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(attributes["known_distributors"]["distributors"]) - 10})')
+
 
             if 'trid' in attributes:
                 print('\nAnálise TrID')
-                for i in attributes['trid']:
+                for i in attributes['trid'][0:10]:
                     print(Fore.YELLOW + Style.BRIGHT + f"  -> Tipo do arquivo: {i['file_type']}")
                     print(f"    - Probabilidade: {i['probability']}%\n")
+                if len(attributes['trid']) > 10:
+                    print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(attributes["trid"]) - 10})')
 
             if 'magic' in attributes:
                 print(f'\nAnálise do bit mágico: {attributes["magic"]}')
@@ -121,14 +128,18 @@ def vt_get_hash(api, hash):
                 print(f'  -> Sugestão de rótulo de ameaça: {ameaca_popular["suggested_threat_label"]}')
 
                 print('  -> Categoria popular da ameaça:')
-                for i in ameaca_popular['popular_threat_category']:
+                for i in ameaca_popular['popular_threat_category'][0:10]:
                     print(Fore.YELLOW + Style.BRIGHT + f'    - Categoria: {i["value"]}')
                     print(f'    - Contagem: {i["count"]}\n')
+                if len(ameaca_popular['popular_threat_category']) > 10:
+                    print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(ameaca_popular["popular_threat_category"]) - 10})')
 
                 print('  -> Nome popular da ameaça')
-                for i in ameaca_popular['popular_threat_name']:
+                for i in ameaca_popular['popular_threat_name'][0:10]:
                     print(Fore.YELLOW + Style.BRIGHT + f'    - Nome: {i["value"]}')
                     print(f'    - Contagem: {i["count"]}\n')
+                if len(ameaca_popular['popular_threat_name']) > 10:
+                    print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(ameaca_popular["popular_threat_name"]) - 10})')
 
             if 'sandbox_verdicts' in attributes:
                 print(Fore.CYAN + Style.BRIGHT + f'\n=== ANÁLISE DE SANDBOX ===\n')
@@ -156,11 +167,3 @@ def vt_get_hash(api, hash):
         print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
         print(e)
         print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
-
-    except:
-        print(Fore.RED + Style.BRIGHT + '\n=== ERRO ENCONTRADO - Virus Total ===\n')
-
-        print(f'Mensagem: {response["error"]["message"]}')
-        print(f'Código: {response["error"]["code"]}\n')
-
-        print('Verfique e tente novamente.\n')
