@@ -46,7 +46,8 @@ def xfr_get_url(api, url):
                 application = response["result"]["application"]
                 print(f'Nome: {application["name"]}')
                 print(f'Descrição: {application["description"]}')
-                print(f'URL base: {application["baseurl"]}')
+                if 'baseurl' in application:
+                    print(f'URL base: {application["baseurl"]}')
                 risco = application["score"]
                 risco = risco < 4 and Fore.GREEN + f"{risco}" or (risco < 7 and Fore.YELLOW + f"{risco}" or Fore.RED + f"{risco}")
                 print(f'Risco: {risco}\n')

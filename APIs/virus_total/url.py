@@ -36,7 +36,7 @@ def vt_get_url(api, url):
         analysis_stats = response['data']['attributes']['last_analysis_stats']
         analysis_results = response['data']['attributes']['last_analysis_results']
 
-        if len(analysis_results) == 0: 
+        if len(analysis_results) == 0 or not attributes or not analysis_stats: 
             sleep(5)
             vt_get_url(api, url)
 

@@ -29,7 +29,8 @@ def vt_get_ip(api, ip_addr):
         print(f'Continente: {attributes["continent"]}\n')
         print(f'Registro de internet regional: {attributes["regional_internet_registry"]}')
         print(f'Rede: {attributes["network"]}')
-        print(f'WHOIS Lookup: {attributes["whois"]}')
+        if 'whois' in attributes:
+            print(f'WHOIS Lookup: {attributes["whois"]}')
  
         print(f'Autonomous System Owner: {attributes["as_owner"]}')
         print(f'Autonomous System Number: {attributes["asn"]}')
