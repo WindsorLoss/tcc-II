@@ -24,6 +24,9 @@ def search_ioc_menu():
 
         file = open('api_keys.txt', 'r')
         api_names, api_keys = keys_organizer(file)
+        hasVirusTotal = bool('virustotal' in api_names)
+        hasAlienVault = bool('alienvault' in api_names)
+        hasXforce = bool('xforce' in api_names)
 
         print(Fore.YELLOW + Style.BRIGHT + '\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
 
@@ -56,16 +59,20 @@ def search_ioc_menu():
                     file = "\\\\".join(file.split('\\'))
 
                 hash = file_to_hash(file)
-                p1 = mp.Process(target=vt_get_hash, args=(api_keys[api_names.index('virustotal')], hash))
-                p2 = mp.Process(target=alv_get_hash, args=(api_keys[api_names.index('alienvault')], hash))
-                p3 = mp.Process(target=xfr_get_hash, args=(api_keys[api_names.index('xforce')], hash))
+                pool = mp.Pool()      
+                if hasVirusTotal:
+                    res1 = pool.apply_async(vt_get_hash, [api_keys[api_names.index('virustotal')], hash], callback=None)
+                if hasAlienVault:
+                    res2 = pool.apply_async(alv_get_hash, [api_keys[api_names.index('alienvault')], hash], callback=None)
+                if hasXforce:
+                    res3 = pool.apply_async(xfr_get_hash, [api_keys[api_names.index('xforce')], hash], callback=None)
 
-                p1.start()
-                p2.start()
-                p3.start()
-                p1.join()
-                p2.join()
-                p3.join()
+                if hasVirusTotal:
+                    res1.get()
+                if hasAlienVault:
+                    res2.get()
+                if hasXforce:
+                    res3.get()
             
             elif option == 2:
                 hash = input('\nDigite a hash: ')
@@ -74,16 +81,20 @@ def search_ioc_menu():
                     sleep(1)
                     hash = input('\nDigite a hash: ')
 
-                p1 = mp.Process(target=vt_get_hash, args=(api_keys[api_names.index('virustotal')], hash))
-                p2 = mp.Process(target=alv_get_hash, args=(api_keys[api_names.index('alienvault')], hash))
-                p3 = mp.Process(target=xfr_get_hash, args=(api_keys[api_names.index('xforce')], hash))
+                pool = mp.Pool()      
+                if hasVirusTotal:
+                    res1 = pool.apply_async(vt_get_hash, [api_keys[api_names.index('virustotal')], hash], callback=None)
+                if hasAlienVault:
+                    res2 = pool.apply_async(alv_get_hash, [api_keys[api_names.index('alienvault')], hash], callback=None)
+                if hasXforce:
+                    res3 = pool.apply_async(xfr_get_hash, [api_keys[api_names.index('xforce')], hash], callback=None)
 
-                p1.start()
-                p2.start()
-                p3.start()
-                p1.join()
-                p2.join()
-                p3.join()
+                if hasVirusTotal:
+                    res1.get()
+                if hasAlienVault:
+                    res2.get()
+                if hasXforce:
+                    res3.get()
             
             elif option == 3:        
                 ip_addr = input('\nDigite o IP: ')
@@ -92,16 +103,20 @@ def search_ioc_menu():
                     sleep(1)
                     ip_addr = input('\nDigite o IP: ')
 
-                p1 = mp.Process(target=vt_get_ip, args=(api_keys[api_names.index('virustotal')], ip_addr))
-                p2 = mp.Process(target=alv_get_ip, args=(api_keys[api_names.index('alienvault')], ip_addr))
-                p3 = mp.Process(target=xfr_get_ip, args=(api_keys[api_names.index('xforce')], ip_addr))
+                pool = mp.Pool()      
+                if hasVirusTotal:
+                    res1 = pool.apply_async(vt_get_ip, [api_keys[api_names.index('virustotal')], ip_addr], callback=None)
+                if hasAlienVault:
+                    res2 = pool.apply_async(alv_get_ip, [api_keys[api_names.index('alienvault')], ip_addr], callback=None)
+                if hasXforce:
+                    res3 = pool.apply_async(xfr_get_ip, [api_keys[api_names.index('xforce')], ip_addr], callback=None)
 
-                p1.start()
-                p2.start()
-                p3.start()
-                p1.join()
-                p2.join()
-                p3.join()
+                if hasVirusTotal:
+                    res1.get()
+                if hasAlienVault:
+                    res2.get()
+                if hasXforce:
+                    res3.get()
 
             elif option == 4:
                 url = input('\nDigite a URL: ')
@@ -110,16 +125,20 @@ def search_ioc_menu():
                     sleep(1)
                     url = input('\nDigite a URL: ')
 
-                p1 = mp.Process(target=vt_get_url, args=(api_keys[api_names.index('virustotal')], url))
-                p2 = mp.Process(target=alv_get_url, args=(api_keys[api_names.index('alienvault')], url))
-                p3 = mp.Process(target=xfr_get_url, args=(api_keys[api_names.index('xforce')], url))
+                pool = mp.Pool()      
+                if hasVirusTotal:
+                    res1 = pool.apply_async(vt_get_url, [api_keys[api_names.index('virustotal')], url], callback=None)
+                if hasAlienVault:
+                    res2 = pool.apply_async(alv_get_url, [api_keys[api_names.index('alienvault')], url], callback=None)
+                if hasXforce:
+                    res3 = pool.apply_async(xfr_get_url, [api_keys[api_names.index('xforce')], url], callback=None)
 
-                p1.start()
-                p2.start()
-                p3.start()
-                p1.join()
-                p2.join()
-                p3.join()
+                if hasVirusTotal:
+                    res1.get()
+                if hasAlienVault:
+                    res2.get()
+                if hasXforce:
+                    res3.get()
 
         except: 
             print(Fore.RED + Style.BRIGHT + '\nOpção inválida, tente novamente.')
