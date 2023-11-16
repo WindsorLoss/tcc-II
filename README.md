@@ -11,3 +11,11 @@ fundamentais da cibersegurança, o objetivo é tornar a segurança cibernética 
 prática e mesmo acessível, para o usuário. O trabalho apresentará resultados e conclusões
 sobre a viabilidade e eficácia do unificador de resultados desenvolvido, além de sugestões
 para melhorias futuras.
+
+Foram criados dois vídeos contendo a explicação sobre o funcionamento do projeto:
+
+Baixar e configurar software:
+https://www.youtube.com/watch?v=Y43HKFQFmHo
+
+Exemplos de pesquisas no software:
+https://www.youtube.com/watch?v=bbX2FuxVFbo
