@@ -116,7 +116,7 @@ def xfr_get_url(api, url):
 
         if response_malware.status_code != 200:
 
-            print(Fore.RED + Style.BRIGHT + "Nenhum dado encontrado sobre malwares da URL informada\n")
+            print(Fore.RED + Style.BRIGHT + "\nNenhum dado encontrado sobre malwares da URL informada\n")
         
         else:
 

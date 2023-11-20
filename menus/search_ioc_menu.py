@@ -69,10 +69,13 @@ def search_ioc_menu():
 
                 if hasVirusTotal:
                     res1.get()
+                    sleep(1)
                 if hasAlienVault:
                     res2.get()
+                    sleep(1)
                 if hasXforce:
                     res3.get()
+                    sleep(1)
             
             elif option == 2:
                 hash = input('\nDigite a hash: ')
@@ -91,10 +94,13 @@ def search_ioc_menu():
 
                 if hasVirusTotal:
                     res1.get()
+                    sleep(1)
                 if hasAlienVault:
                     res2.get()
+                    sleep(1)
                 if hasXforce:
                     res3.get()
+                    sleep(1)
             
             elif option == 3:        
                 ip_addr = input('\nDigite o IP: ')
@@ -113,10 +119,13 @@ def search_ioc_menu():
 
                 if hasVirusTotal:
                     res1.get()
+                    sleep(1)
                 if hasAlienVault:
                     res2.get()
+                    sleep(1)
                 if hasXforce:
                     res3.get()
+                    sleep(1)
 
             elif option == 4:
                 url = input('\nDigite a URL: ')
@@ -135,10 +144,13 @@ def search_ioc_menu():
 
                 if hasVirusTotal:
                     res1.get()
+                    sleep(1)
                 if hasAlienVault:
                     res2.get()
+                    sleep(1)
                 if hasXforce:
                     res3.get()
+                    sleep(1)
 
         except: 
             print(Fore.RED + Style.BRIGHT + '\nOpção inválida, tente novamente.')

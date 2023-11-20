@@ -32,6 +32,10 @@ def vt_get_url(api, url):
 
     try:
 
+        if 'data' not in response:
+            sleep(5)
+            vt_get_url(api, url)
+
         attributes = response['data']['attributes']
         analysis_stats = response['data']['attributes']['last_analysis_stats']
         analysis_results = response['data']['attributes']['last_analysis_results']
@@ -103,9 +107,10 @@ def vt_get_url(api, url):
               
     except Exception as e:
         
-        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
-        print(e)
-        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        if e.args[0] != 'data':    
+            print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+            print(e)
+            print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
 
     except:
 

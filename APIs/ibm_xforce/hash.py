@@ -20,7 +20,6 @@ def xfr_get_hash(api, hash):
         else:
 
             response = response.json()
-
             malware = response['malware']
             origins = malware['origins']
             risco = malware['risk'].upper()

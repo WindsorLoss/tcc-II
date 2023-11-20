@@ -24,7 +24,7 @@ def alv_get_url(api, str):
             }).json()
 
             if "detail" in response_general and "endpoint not found" in response_general['detail']:
-
+                
                 newUrl = re.split("\?|#", str)[0]
                 response_submit_url = requests.post(f'https://otx.alienvault.com/api/v1/indicators/submit_url',
                 data = {
@@ -32,13 +32,12 @@ def alv_get_url(api, str):
                 },
                 headers={
                     'X-OTX-API-KEY': api
-                }).json()
+                })
 
                 response_submitted_urls = requests.get(f'https://otx.alienvault.com/api/v1/indicators/submitted_urls', 
                 headers={
                     'X-OTX-API-KEY': api
                 }).json() 
-
 
                 isComplete = response_submitted_urls["results"][0]["complete_date"]
 
@@ -184,6 +183,6 @@ def alv_get_url(api, str):
 
     except Exception as e:
         
-        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(Fore.RED + Style.BRIGHT + "\n-=-=- ERROR - AlienVault -=-=-")
         print(e)
-        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR - AlienVault -=-=-\n")
