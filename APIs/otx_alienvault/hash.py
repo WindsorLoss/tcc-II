@@ -61,11 +61,16 @@ def alv_get_hash(api, hash):
             print(Fore.CYAN + Style.BRIGHT + '\n=== MALWARES ===\n')
 
             plugins = response_analysis["analysis"]["plugins"]
+            itens_printed = 0
             for i in plugins:
         
                 if i != "peanomal" and "results" in plugins[i] and plugins[i]["results"] and "detection" in plugins[i]["results"] and plugins[i]["results"]["detection"]:
                     print(Fore.YELLOW + Style.BRIGHT + f'Plugin: {i}')
                     print(f'Detecção: {plugins[i]["results"]["detection"]}\n')
+                    itens_printed += 1
+            
+            if itens_printed == 0:
+                print(Fore.MAGENTA + Style.BRIGHT + f'Não foram encontrados dados relevantes relacionados a detecção.')
 
 
     except Exception as e:

@@ -134,12 +134,13 @@ def vt_get_hash(api, hash):
                 if len(ameaca_popular['popular_threat_category']) > 10:
                     print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(ameaca_popular["popular_threat_category"]) - 10})')
 
-                print('  -> Nome popular da ameaça')
-                for i in ameaca_popular['popular_threat_name'][0:10]:
-                    print(Fore.YELLOW + Style.BRIGHT + f'    - Nome: {i["value"]}')
-                    print(f'    - Contagem: {i["count"]}\n')
-                if len(ameaca_popular['popular_threat_name']) > 10:
-                    print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(ameaca_popular["popular_threat_name"]) - 10})')
+                if "popular_threat_name" in ameaca_popular:
+                    print('  -> Nome popular da ameaça')
+                    for i in ameaca_popular['popular_threat_name'][0:10]:
+                        print(Fore.YELLOW + Style.BRIGHT + f'    - Nome: {i["value"]}')
+                        print(f'    - Contagem: {i["count"]}\n')
+                    if len(ameaca_popular['popular_threat_name']) > 10:
+                        print(Fore.YELLOW + Style.BRIGHT + f'  -> Entre outras ({len(ameaca_popular["popular_threat_name"]) - 10})')
 
             if 'sandbox_verdicts' in attributes:
                 print(Fore.CYAN + Style.BRIGHT + f'\n=== ANÁLISE DE SANDBOX ===\n')
