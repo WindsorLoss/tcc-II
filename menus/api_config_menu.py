@@ -132,10 +132,10 @@ def api_config_menu():
                                 sleep(1)
                                 api_password = input('\nQual o valor da senha da sua chave de API do IBM X-Force? ')
                             
-                                data_string = (f"{api_key}:{api_password}")
-                                data_bytes = data_string.encode("utf-8")
-                                token = base64.b64encode(data_bytes)
-                                token = f"{token}".split("'")[1]
+                            data_string = (f"{api_key}:{api_password}")
+                            data_bytes = data_string.encode("utf-8")
+                            token = base64.b64encode(data_bytes)
+                            token = f"{token}".split("'")[1]
                             overwrite_key('api_keys.txt', 'xforce', token)
 
                     else:
@@ -175,6 +175,11 @@ def api_config_menu():
                         print('O arquivo ainda não contem nenhuma informação.')
                         sleep(1)
 
-        except: 
-            print(Fore.RED + Style.BRIGHT + '\nOpção inválida, tente novamente.')
-            sleep(1)
+        except Exception as e:
+            print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+            print(e)
+            print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+
+        # except: 
+        #     print(Fore.RED + Style.BRIGHT + '\nOpção inválida, tente novamente.')
+        #     sleep(1)
