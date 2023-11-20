@@ -128,6 +128,6 @@ def xfr_get_url(api, url):
                 malware_info(malwares)
 
     except Exception as e:
-        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR - X-Force -=-=-")
         print(e)
-        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR - X-Force -=-=-")

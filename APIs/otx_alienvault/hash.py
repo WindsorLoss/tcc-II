@@ -69,6 +69,6 @@ def alv_get_hash(api, hash):
 
 
     except Exception as e:
-        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(Fore.RED + Style.BRIGHT + "\n-=-=- ERROR - AlienVault -=-=-")
         print(e)
-        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR - AlienVault -=-=-\n")

@@ -108,21 +108,6 @@ def vt_get_url(api, url):
     except Exception as e:
         
         if e.args[0] != 'data':    
-            print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+            print(Fore.RED + Style.BRIGHT + "-=-=- ERROR - VirusTotal -=-=-")
             print(e)
-            print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
-
-    except:
-
-        error_code = response['error']['code']
-        error_message = response['error']['message']
-
-        if error_code == "NotFoundError":
-            vt_get_url(api, url)
-        else:
-            print(Fore.RED + Style.BRIGHT + '\n=== ERRO ENCONTRADO - Virus Total ===\n')
-
-            print(f'Mensagem: {error_message}')
-            print(f'Código: {error_code}\n')
-
-            print('Verfique e tente novamente.\n')
+            print(Fore.RED + Style.BRIGHT + "-=-=- ERROR - VirusTotal -=-=-")

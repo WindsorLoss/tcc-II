@@ -42,14 +42,6 @@ def vt_get_ip(api, ip_addr):
 
 
     except Exception as e:
-        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR - VirusTotal -=-=-")
         print(e)
-        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
-
-    except:
-        print(Fore.RED + Style.BRIGHT + '\n=== ERRO ENCONTRADO - Virus Total ===\n')
-
-        print(f'Mensagem: {response["error"]["message"]}')
-        print(f'Código: {response["error"]["code"]}\n')
-
-        print('Verfique e tente novamente.\n')
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR - VirusTotal -=-=-")

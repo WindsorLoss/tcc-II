@@ -164,6 +164,6 @@ def vt_get_hash(api, hash):
                     print('\n')
 
     except Exception as e:
-        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR - VirusTotal -=-=-")
         print(e)
-        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR -=-=-")
+        print(Fore.RED + Style.BRIGHT + "-=-=- ERROR - VirusTotal -=-=-")
