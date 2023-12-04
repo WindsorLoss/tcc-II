@@ -62,20 +62,20 @@ def search_ioc_menu():
                 pool = mp.Pool()      
                 if hasVirusTotal:
                     res1 = pool.apply_async(vt_get_hash, [api_keys[api_names.index('virustotal')], hash], callback=None)
+                    sleep(1)
                 if hasAlienVault:
                     res2 = pool.apply_async(alv_get_hash, [api_keys[api_names.index('alienvault')], hash], callback=None)
+                    sleep(1)
                 if hasXforce:
                     res3 = pool.apply_async(xfr_get_hash, [api_keys[api_names.index('xforce')], hash], callback=None)
+                    sleep(1)
 
-                if hasVirusTotal:
-                    res1.get()
-                    sleep(1)
-                if hasAlienVault:
-                    res2.get()
-                    sleep(1)
                 if hasXforce:
                     res3.get()
-                    sleep(1)
+                if hasAlienVault:
+                    res2.get()
+                if hasVirusTotal:
+                    res1.get()
             
             elif option == 2:
                 hash = input('\nDigite a hash: ')
@@ -87,20 +87,20 @@ def search_ioc_menu():
                 pool = mp.Pool()      
                 if hasVirusTotal:
                     res1 = pool.apply_async(vt_get_hash, [api_keys[api_names.index('virustotal')], hash], callback=None)
+                    sleep(1)
                 if hasAlienVault:
                     res2 = pool.apply_async(alv_get_hash, [api_keys[api_names.index('alienvault')], hash], callback=None)
+                    sleep(1)
                 if hasXforce:
                     res3 = pool.apply_async(xfr_get_hash, [api_keys[api_names.index('xforce')], hash], callback=None)
+                    sleep(1)
 
-                if hasVirusTotal:
-                    res1.get()
-                    sleep(1)
-                if hasAlienVault:
-                    res2.get()
-                    sleep(1)
                 if hasXforce:
                     res3.get()
-                    sleep(1)
+                if hasAlienVault:
+                    res2.get()
+                if hasVirusTotal:
+                    res1.get()
             
             elif option == 3:        
                 ip_addr = input('\nDigite o IP: ')
@@ -112,20 +112,20 @@ def search_ioc_menu():
                 pool = mp.Pool()      
                 if hasVirusTotal:
                     res1 = pool.apply_async(vt_get_ip, [api_keys[api_names.index('virustotal')], ip_addr], callback=None)
+                    sleep(1)
                 if hasAlienVault:
                     res2 = pool.apply_async(alv_get_ip, [api_keys[api_names.index('alienvault')], ip_addr], callback=None)
+                    sleep(1)
                 if hasXforce:
                     res3 = pool.apply_async(xfr_get_ip, [api_keys[api_names.index('xforce')], ip_addr], callback=None)
+                    sleep(1)
 
-                if hasVirusTotal:
-                    res1.get()
-                    sleep(1)
-                if hasAlienVault:
-                    res2.get()
-                    sleep(1)
                 if hasXforce:
                     res3.get()
-                    sleep(1)
+                if hasAlienVault:
+                    res2.get()
+                if hasVirusTotal:
+                    res1.get()
 
             elif option == 4:
                 url = input('\nDigite a URL: ')
@@ -137,20 +137,20 @@ def search_ioc_menu():
                 pool = mp.Pool()      
                 if hasVirusTotal:
                     res1 = pool.apply_async(vt_get_url, [api_keys[api_names.index('virustotal')], url], callback=None)
+                    sleep(1)
                 if hasAlienVault:
                     res2 = pool.apply_async(alv_get_url, [api_keys[api_names.index('alienvault')], url], callback=None)
+                    sleep(1)
                 if hasXforce:
                     res3 = pool.apply_async(xfr_get_url, [api_keys[api_names.index('xforce')], url], callback=None)
+                    sleep(1)
 
-                if hasVirusTotal:
-                    res1.get()
-                    sleep(1)
-                if hasAlienVault:
-                    res2.get()
-                    sleep(1)
                 if hasXforce:
                     res3.get()
-                    sleep(1)
+                if hasAlienVault:
+                    res2.get()
+                if hasVirusTotal:
+                    res1.get()
 
         except: 
             print(Fore.RED + Style.BRIGHT + '\nOpção inválida, tente novamente.')

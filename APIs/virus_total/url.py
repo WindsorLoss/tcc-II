@@ -68,7 +68,7 @@ def vt_get_url(api, url):
 
             print(Fore.CYAN + Style.BRIGHT + '\n=== CATEGORIAS ===\n')
             for i in attributes['categories']:
-                print(Fore.YELLOW + i)
+                print(Fore.YELLOW + Style.BRIGHT + i)
                 print(f"{attributes['categories'][i]}\n")
 
             if attributes["tags"]:
